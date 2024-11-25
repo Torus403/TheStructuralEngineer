@@ -1,50 +1,100 @@
 ---
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
 interface Props {
 	title: string;
+	description?: string;
 }
 
-const { title } = Astro.props;
+const {
+	title,
+	description = "The Structural Engineer - Professional structural engineering services"
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="description" content={description} />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="icon" type="image/svg+xml" href="/theStructuralEngineerLogo.svg" />
+	<link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+		integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+"
+		crossorigin="anonymous"
+	/>
+	<meta name="generator" content={Astro.generator} />
+	<title>{title}</title>
+</head>
+<body>
+<div class="site-container">
+	<Navbar />
+	<main class="main-content">
 		<slot />
-	</body>
+	</main>
+	<Footer />
+</div>
+</body>
 </html>
+
 <style is:global>
+	/* Reset and base styles */
+	*, *::before, *::after {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
 	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
+		--max-width: 1200px;
+		--site-padding: 1rem;
 	}
+
 	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
+		font-family: Arial, sans-serif;
+		background-color: white;
+		overflow-x: hidden; /* Prevent horizontal scroll */
+		min-height: 100%;
 	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
+
+	body {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		overflow-x: hidden; /* Belt and suspenders approach to prevent overflow */
+	}
+
+	/* Main layout container */
+	.site-container {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+		width: 100%;
+		position: relative;
+	}
+
+	/* Main content area */
+	.main-content {
+		flex: 1 0 auto; /* This ensures footer stays at bottom */
+		width: 100%;
+		max-width: var(--max-width);
+		margin: 0 auto;
+		padding: 0 var(--site-padding);
+	}
+
+	/* Responsive adjustments */
+	@media (max-width: 768px) {
+		:root {
+			--site-padding: 0.75rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		:root {
+			--site-padding: 0.5rem;
+		}
 	}
 </style>
