@@ -1,0 +1,190 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+    const articles = await getCollection('article');
+    return articles.map((article) => ({
+        params: { slug: article.slug },
+    }));
+}
+
+const { slug } = Astro.params;
+const article = await getEntry('article', slug);
+const { Content } = await article.render();
+const { title, author, publishDate, categories = ["ENGINEERING", "ARCHITECTURE"] } = article.data;
+---
+
+<Layout title={title}>
+    <article class="article-container">
+        <header class="article-header">
+            <h1 class="article-title">{title}</h1>
+            <div class="article-meta">
+                <p class="author-date">By {author} • {publishDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                })}</p>
+                <div class="categories">
+                    {categories.map((category, index) => (
+                            <>
+                                {index > 0 && <span class="separator">|</span>}
+                                <span class="category">{category.toUpperCase()}</span>
+                            </>
+                    ))}
+                </div>
+            </div>
+        </header>
+
+        <div class="article-content">
+            <Content />
+        </div>
+    </article>
+</Layout>
+
+<style>
+    .article-container {
+        width: 100%;
+        padding: 2rem 0;
+    }
+
+    .article-header {
+        margin-bottom: 3rem;
+    }
+
+    .article-title {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 2.5rem;
+        line-height: 1.2;
+        color: #1a1a1a;
+        margin-bottom: 1.5rem;
+    }
+
+    .article-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .author-date {
+        font-family: Georgia, serif;
+        font-size: 1rem;
+        color: #4a4a4a;
+        margin: 0;
+    }
+
+    .categories {
+        font-family: Georgia, serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        color: #666;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .category {
+        white-space: nowrap;
+    }
+
+    .separator {
+        color: #999;
+    }
+
+    .article-content {
+        font-family: Georgia, serif;
+        font-size: 1.125rem;
+        line-height: 1.75;
+        color: #1a1a1a;
+    }
+
+    /* Style content headings */
+    .article-content :global(h2) {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 1.75rem;
+        margin-top: 2.5rem;
+        margin-bottom: 1.25rem;
+        color: #1a1a1a;
+    }
+
+    .article-content :global(h3) {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 1.5rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        color: #1a1a1a;
+    }
+
+    /* Style content paragraphs */
+    .article-content :global(p) {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Style content lists */
+    .article-content :global(ul),
+    .article-content :global(ol) {
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
+    }
+
+    .article-content :global(li) {
+        margin-bottom: 0.5rem;
+    }
+
+    /* Style content links */
+    .article-content :global(a) {
+        color: #0066cc;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+
+    .article-content :global(a:hover) {
+        text-decoration: none;
+    }
+
+    /* Style content blockquotes */
+    .article-content :global(blockquote) {
+        font-style: italic;
+        margin: 2rem 0;
+        padding-left: 1.5rem;
+        border-left: 3px solid #1a1a1a;
+        color: #4a4a4a;
+    }
+
+    /* Style content code blocks */
+    .article-content :global(pre) {
+        background-color: #f5f5f5;
+        padding: 1rem;
+        border-radius: 4px;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .article-container {
+            padding: 1.5rem 0;
+        }
+
+        .article-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-content {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .article-content :global(h2) {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .article-content :global(h3) {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+        }
+    }
+</style>
