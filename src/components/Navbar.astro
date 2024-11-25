@@ -1,0 +1,85 @@
+---
+---
+
+<header class="nav-container">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="logo-container">
+            <a href="/" aria-label="Home">
+                <img
+                        src="/theStructuralEngineerLogo.svg"
+                        alt="The Structural Engineer Logo"
+                        width="200"
+                        height="50"
+                        class="logo"
+                />
+            </a>
+        </div>
+    </nav>
+</header>
+
+<style>
+    .nav-container {
+        width: 100%;
+        background-color: white;
+        border-bottom: 1px solid #f0f0f0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .navbar {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.75rem 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo {
+        max-width: 200px;
+        height: auto;
+        /* Preserve aspect ratio while scaling */
+        width: auto;
+        /* Enable smooth scaling */
+        transition: transform 0.2s ease;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .navbar {
+            padding: 0.5rem;
+        }
+
+        .logo {
+            max-width: 150px;
+        }
+    }
+
+    /* Ensure the navbar doesn't become too small on very small screens */
+    @media (max-width: 480px) {
+        .logo {
+            max-width: 120px;
+        }
+    }
+
+    /* Focus states for accessibility */
+    .logo-container a:focus {
+        outline: 2px solid #0066cc;
+        outline-offset: 2px;
+        border-radius: 2px;
+    }
+
+    /* Optional: Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+        .logo {
+            transition: none;
+        }
+    }
+</style>

@@ -1,0 +1,164 @@
+---
+const currentYear = new Date().getFullYear();
+const companyName = "The Structural Engineer";
+---
+
+<footer class="footer-container" role="contentinfo">
+    <div class="footer-content">
+        <div class="footer-top">
+            <div class="logo-container">
+                <a href="/" aria-label="Home">
+                    <img
+                            src="/theStructuralEngineerLogo.svg"
+                            alt="The Structural Engineer Logo"
+                            width="120"
+                            height="30"
+                            class="logo"
+                    />
+                </a>
+            </div>
+            <div class="copyright">
+                © {currentYear} {companyName}. All rights reserved.
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <nav class="footer-nav" aria-label="Footer navigation">
+                <ul class="footer-links">
+                    <li>
+                        <a href="/" class="footer-link">Home</a>
+                    </li>
+                    <li>
+                        <a href="/about" class="footer-link">About Us</a>
+                    </li>
+                    <li>
+                        <a href="/sitemap" class="footer-link">Site Map</a>
+                    </li>
+                </ul>
+            </nav>
+            <p class="privacy-info">
+                This website doesn't collect or store any personal information or cookies.
+            </p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .footer-container {
+        background-color: black;
+        color: white;
+        width: 100%;
+        padding: 1rem 0.75rem;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        overflow-x: hidden;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .logo {
+        filter: brightness(0) invert(1);
+        max-width: 120px;
+        height: auto;
+        width: auto;
+    }
+
+    .copyright {
+        font-size: 14px;
+    }
+
+    .footer-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .footer-link {
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        transition: opacity 0.2s ease;
+    }
+
+    .footer-link:hover {
+        opacity: 0.8;
+    }
+
+    .privacy-info {
+        font-size: 14px;
+        margin: 0;
+        opacity: 0.9;
+    }
+
+    /* Focus states for accessibility */
+    .footer-link:focus {
+        outline: 2px solid white;
+        outline-offset: 2px;
+        border-radius: 2px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .footer-container {
+            font-size: 11px;
+            padding: 0.75rem 0.5rem;
+        }
+
+        .footer-top {
+            flex-direction: column;
+            text-align: center;
+            gap: 0.5rem;
+        }
+
+        .logo-container {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            gap: 0.75rem;
+        }
+
+        .logo {
+            max-width: 100px;
+        }
+
+        .copyright,
+        .footer-link,
+        .privacy-info {
+            font-size: 11px;
+        }
+    }
+
+    /* Optional: Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+        .footer-link {
+            transition: none;
+        }
+    }
+</style>
